@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="onedata"
+            type="com.example.recyclerviewtest20210402.MyData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
