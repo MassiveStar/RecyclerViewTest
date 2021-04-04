@@ -5,27 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class MyDataAdapter : RecyclerView.Adapter<MyDataAdapter.ViewHolder>() {
-
-    var data = listOf<MyData>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class MyDataAdapter : ListAdapter<MyData, MyDataAdapter.ViewHolder>(MyDataDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyDataAdapter.ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: MyDataAdapter.ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
     }
 
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -55,5 +47,16 @@ class MyDataAdapter : RecyclerView.Adapter<MyDataAdapter.ViewHolder>() {
             }
         }
     }
+}
+
+class MyDataDiffCallback : DiffUtil.ItemCallback<MyData>(){
+    override fun areItemsTheSame(oldItem: MyData, newItem: MyData): Boolean {
+        return oldItem.dni == newItem.dni
+    }
+
+    override fun areContentsTheSame(oldItem: MyData, newItem: MyData): Boolean {
+        return oldItem == newItem
+    }
+
 
 }
